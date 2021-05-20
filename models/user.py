@@ -10,7 +10,9 @@ import uuid
 
 
 class User(BaseModel):
-    """class object to define attributes/method of each instance of user"""
+    """
+    class object to define attributes/method of each instance of user
+    """
     email = ''
     password = ''
     first_name = ''
