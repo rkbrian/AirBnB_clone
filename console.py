@@ -4,6 +4,7 @@
 
 import cmd
 import os
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
