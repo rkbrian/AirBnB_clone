@@ -15,3 +15,7 @@ class User(BaseModel):
     password = ''
     first_name = ''
     last_name = ''
+
+    def __init__(self, *args, **kwargs):
+        """class constructor"""
+        super().__init__()
