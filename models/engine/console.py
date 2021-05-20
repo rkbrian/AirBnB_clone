@@ -9,29 +9,36 @@ import os
 class HBNBCommand(cmd.Cmd):
     """class to contain entry point of the command interpreter"""
 
-    exit_str = ["EOF", "quit"]
-
     def __init__(self):
         """class initialization"""
         cmd.Cmd.__init__(self)
-        self.prompt = "(hbnb)"
+        self.prompt = "(hbnb) "
 
-    def help(self, *arg):
+    def emptyline(self):
+        """press enter does nothing"""
+        pass
+
+    def help(self):
         """command for help"""
-        if arg and len(arg):
-            if arg[0] = "help":
-                if arg[1] == exit_str[0]:
-                    print("EOF command to exit the program")
-                elif arg[1] == exit_str[1]:
-                    print("Quit command to exit the program")
-        else:
-            print("Documented commands (type help <topic>):")
-            print("========================================")
-            print("EOF  help  quit")
+        print("\nDocumented commands (type help <topic>):")
+        print("========================================")
+        print("EOF  help  quit\n")
 
-    def quit(self):
+    def help_quit(self):
+        """command for (help quit)"""
+        print("Quit command to exit the program\n")
+
+    def help_EOF(self):
+        """command for (help EOF)"""
+        print("EOF command to exit the program\n")
+
+    def do_quit(self, arg):
         """command to exit interface"""
-        
+        return True
 
-    if __name__ == '__main__':
+    def do_EOF(self, arg):
+        """command to exit interface"""
+        return True
+
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
