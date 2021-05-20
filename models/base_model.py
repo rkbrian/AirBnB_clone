@@ -16,6 +16,9 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """class initialization"""
         isostr = "%Y-%m-%dT%H:%M:%S.%f"
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = datetime.now()
         if kwargs and len(kwargs):
             for i, j in kwargs.items():
                 if i != "__class__":
@@ -25,10 +28,6 @@ class BaseModel:
                         self.updated_at = datetime.strptime(j, isostr)
                     else:
                         setattr(self, i, j)
-        else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
 
     def __str__(self):
         """class initialization"""
@@ -47,7 +46,5 @@ class BaseModel:
         for keys, values in newdict.items():
             if type(values) is datetime:
                 newdict[keys] = values.isoformat()
-            else:
-                newdict[keys] = values
         newdict["__class__"] = self.__class__.__name__
         return newdict
