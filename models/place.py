@@ -8,7 +8,7 @@ from datetime import datetime
 import uuid
 
 
-class State(BaseModel):
+class Place(BaseModel):
     """
     class object to define attributes/methods for each amenity of city
     """

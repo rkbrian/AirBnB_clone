@@ -9,11 +9,17 @@ import models
 from models.user import User
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """class to contain entry point of the command interpreter"""
 
-    classname = ["BaseModel", "User"]
+    classname = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
 
     def __init__(self):
         """class initialization"""
@@ -48,16 +54,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """create new instance of BaseModel, save it and print id"""
-        if not arg:
+        if len(arg) == 0:
             print("** class name missing **")
-        for key, value in models.storage._FileStorage__objects[key]:
-            if arg == key:
-                tempval = value
-                tempval.save()
-        if tempval.id:
-            print(tempval.id)
         else:
-            print("** class doesn't exist **")
+            for keys, values in models.storage._FileStorage__objects:
+                if arg == keys:
+                    tempval = values
+                    tempval.save()
+            if tempval.id:
+                print(tempval.id)
+            else:
+                print("** class doesn't exist **")
 
     def do_show(self, arg):
         """print str rep of an inst based on class name and id"""
@@ -69,11 +76,11 @@ class HBNBCommand(cmd.Cmd):
         elif len(larg) == 1:
             print("** instance id missing **")
         elif len(larg) == 2:
-            for keys, values in models.storage._FileStorage__objects[keys]:
+            for keys, values in models.storage._FileStorage__objects:
                 if larg[0] + "." + larg[1] == keys:
                     print(values)
             else:
-                print("** instance id missing **")
+                print("** no instance found **")
 
     def do_destroy(self):
         """delete an instance based on class name and id"""
@@ -85,18 +92,18 @@ class HBNBCommand(cmd.Cmd):
         elif len(larg) == 1:
             print("** instance id missing **")
         elif len(larg) == 2:
-            for keys, values in models.storage._FileStorage__objects[keys]:
+            for keys, values in models.storage._FileStorage__objects:
                 if larg[0] + "." + larg[1] == keys:
                     del models.storage._FileStorage__objects[keys]
                     models.storage.save
             else:
-                print("** instance id missing **")
+                print("** no instance found **")
 
     def do_all(self, arg=None):
         """prints all string representation of all instances"""
         if arg in self.classname:
             listr = []
-            for keys, values in models.storage._FileStorage__objects[keys]:
+            for keys, values in models.storage._FileStorage__objects:
                 if arg in keys:
                     listr.append(str(values))
             print(listr)
@@ -122,10 +129,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
         else:
-            #halfn = len(larg) / 2
-            for keys, values in models.storage._FileStorage__objects[keys]:
-                #for i in range(1, halfn):
-                    #if larg[i * 2] + "." + larg[i * 2 + 1] == keys:
+            for keys, values in models.storage._FileStorage__objects:
                 if larg[2] + "." + larg[3] == keys:
                     attr = getattr(keys, larg[2])
                     if isinstance(attr, (str or int or float)):
