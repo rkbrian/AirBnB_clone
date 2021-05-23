@@ -19,7 +19,8 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """class to contain entry point of the command interpreter"""
 
-    classname = ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]
+    classname = ["BaseModel", "User", "Place", "State",
+                 "City", "Amenity", "Review"]
 
     def __init__(self):
         """class initialization"""
@@ -56,25 +57,29 @@ class HBNBCommand(cmd.Cmd):
         """create new instance of BaseModel, save it and print id"""
         if len(arg) == 0:
             print("** class name missing **")
+            return
         else:
             for keys, values in models.storage._FileStorage__objects:
                 if arg == keys:
                     tempval = values
                     tempval.save()
-            if tempval.id:
-                print(tempval.id)
-            else:
-                print("** class doesn't exist **")
+                if tempval.id:
+                    print(tempval.id)
+                else:
+                    print("** class doesn't exist **")
 
     def do_show(self, arg):
         """print str rep of an inst based on class name and id"""
         larg = arg.split()
         if len(larg) == 0:
             print("** class name missing **")
+            return
         elif larg[0] not in self.classname:
             print("** class doesn't exist **")
+            return
         elif len(larg) == 1:
             print("** instance id missing **")
+            return
         elif len(larg) == 2:
             for keys, values in models.storage._FileStorage__objects:
                 if larg[0] + "." + larg[1] == keys:
@@ -82,15 +87,18 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    def do_destroy(self):
+    def do_destroy(self, arg):
         """delete an instance based on class name and id"""
         larg = arg.split()
         if len(larg) == 0:
             print("** class name missing **")
+            return
         elif larg[0] not in self.classname:
             print("** class doesn't exist **")
+            return
         elif len(larg) == 1:
             print("** instance id missing **")
+            return
         elif len(larg) == 2:
             for keys, values in models.storage._FileStorage__objects:
                 if larg[0] + "." + larg[1] == keys:
