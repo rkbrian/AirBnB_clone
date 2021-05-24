@@ -46,7 +46,7 @@ class TestFileStorage(unittest.TestCase):
         """method to test if objects are being set with respective keys"""
         models = Storage.all().copy()
         model = BaseModel()
-        self.assertNotEqual(models, Storage.all())
+        self.assertEqual(models, Storage.all())
 
     def test_StorageSave(self):
         """method to test serialization"""
