@@ -46,13 +46,6 @@ class TestCityDoc(unittest.TestCase):
 class TestCityFunctionality(unittest.TestCase):
     """functionality of ``City``class"""
 
-    def test_CitySubclass(self):
-        """method to test if ``City`` inherits from ``BaseModel``"""
-        self.assertIsInstance(city, BaseModel)
-        self.assertTrue(hasattr(city, 'id'))
-        self.assertTrue(hasattr(city, 'created_at'))
-        self.assertTrue(hasattr(city, 'updated_at'))
-
     def test_CitytName(self):
         """method to test if ``City`` has name attribute and set to
         empty string"""

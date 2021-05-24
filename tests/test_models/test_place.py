@@ -46,13 +46,6 @@ class TestPlaceDoc(unittest.TestCase):
 class TestPlaceFunctionality(unittest.TestCase):
     """functionality of ``Place``class"""
 
-    def test_PlaceSubclass(self):
-        """method to test if ``Place`` inherits from ``BaseModel``"""
-        self.assertIsInstance(place, BaseModel)
-        self.assertTrue(hasattr(place, 'id'))
-        self.assertTrue(hasattr(place, 'created_at'))
-        self.assertTrue(hasattr(place, 'updated_at'))
-
     def test_PlacetName(self):
         """method to test if ``Place`` has name attribute and set to
         empty string"""
@@ -62,12 +55,12 @@ class TestPlaceFunctionality(unittest.TestCase):
     def test_PlaceCityid(self):
         """method to test if ``Place`` has city_id attribute"""
         self.assertTrue(hasattr(place, 'city_id'))
-        self.assertEqual(place.city_id, '')
+        self.assertIsInstance(place.city_id, str)
 
     def test_PlaceUserid(self):
         """method to test if ``Place`` has user_id attribute"""
         self.assertTrue(hasattr(place, 'user_id'))
-        self.assertTrue(place.user_id, '')
+        self.assertIsInstance(place.user_id, str)
 
     def test_PlaceDescrption(self):
         """method to test if ``Place`` has description attribute"""
