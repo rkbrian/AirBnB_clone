@@ -26,17 +26,11 @@ class HBNBCommand(cmd.Cmd):
     def __init__(self):
         """class initialization"""
         cmd.Cmd.__init__(self)
-        self.prompt = "(hbnb) "
+        self.prompt = "(hbnb)"
 
     def emptyline(self):
         """press enter does nothing"""
         pass
-
-    def help(self):
-        """command for help"""
-        print("\nDocumented commands (type help <topic>):")
-        print("========================================")
-        print("EOF  help  quit\n")
 
     def help_quit(self):
         """command for (help quit)"""
