@@ -24,6 +24,34 @@ class HBNBCommand(cmd.Cmd):
                  "Review": Review}
     prompt = '(hbnb) '
 
+    def default(self, arg):
+        """default input for function call"""
+        argcopy = arg
+        cutter = [".", "(", ")", "\"", ","]
+        no_dot = argcopy.replace(cutter[0], " ", 1)
+        for i in range(len(cutter)):
+            argcopy = argcopy.replace(cutter[i], " ")
+        larg = argcopy.split()
+        if no_dot[0] in self.classname.keys():
+            if larg[1] == "all":
+                self.do_all(no_dot[0])
+            elif larg[1] == "count":
+                i = 0
+                for keys in models.storage.all().keys():
+                    i += 1
+                print(i)
+            elif larg[1] == "show":
+                self.do_show(no_dot[0] + " " + larg[2])
+            elif larg[1] == "destroy":
+                self.do_destroy(no_dot[0] + " " + larg[2])
+            elif larg[1] == "update":
+                self.do_update(no_dot[0] + " " + larg[2] +
+                               " " + larg[3] + " " + larg[4])
+            else:
+                print("** syntax error **")
+        else:
+            print("** syntax error **")
+
     def emptyline(self):
         """press enter does nothing"""
         pass
