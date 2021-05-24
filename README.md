@@ -83,7 +83,7 @@ $ echo help | ./console.py
 Documented commands (type help <topic>):
 ========================================
 EOF  all  create  destroy  help  quit  show  update
-
+```
 ### The real juice - Examples
 ```
 ~/AirBnB_clone $ ./console.py
