@@ -119,30 +119,40 @@ class HBNBCommand(cmd.Cmd):
             print(listr)
         else:
             print("** class doesn't exist **")
+            return
 
     def do_update(self, arg):
         """update an instance based on class name and id"""
         larg = arg.split()
         if len(larg) == 0:
             print("** class name missing **")
+            return
         elif larg[0] not in self.classname.keys():
             print("** class doesn't exist **")
+            return
         elif len(larg) == 1:
             print("** instance id missing **")
-        elif larg[1] not in (models.storage.all().keys()).split(".")[1]:
+            return
+        for keys in models.storage.all().keys():
+            if larg[0] + "." + larg[1] == keys:
+                break
+        else:
             print("** no instance found **")
-        elif len(larg) == 2:
+            return
+        if len(larg) == 2:
             print("** attribute name missing **")
+            return
         elif len(larg) == 3:
             print("** value missing **")
+            return
         else:
             for keys, values in models.storage.all().items():
                 if larg[0] + "." + larg[1] == keys:
                     if larg[2] in values.__dict__.keys():
                         attr = getattr(values, larg[2])
-                        setattr(keys, larg[2], type(attr)(larg[3][1: -1]))
+                        setattr(values, larg[2], type(attr)(larg[3][1: -1]))
                     else:
-                        setattr(keys, larg[2], (larg[3][1: -1]))
+                        setattr(values, larg[2], (larg[3][1: -1]))
                 models.storage.save()
 
 if __name__ == '__main__':
