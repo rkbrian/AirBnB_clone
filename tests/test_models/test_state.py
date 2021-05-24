@@ -46,13 +46,6 @@ class TestStateDoc(unittest.TestCase):
 class TestStateFunctionality(unittest.TestCase):
     """functionality of ``State``class"""
 
-    def test_StateSubclass(self):
-        """method to test if ``State`` inherits from ``BaseModel``"""
-        self.assertIsInstance(state, BaseModel)
-        self.assertTrue(hasattr(state, 'id'))
-        self.assertTrue(hasattr(state, 'created_at'))
-        self.assertTrue(hasattr(state, 'updated_at'))
-
     def test_StatetName(self):
         """method to test if ``State`` has name attribute and set to
         empty string"""

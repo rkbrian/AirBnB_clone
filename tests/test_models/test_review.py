@@ -46,13 +46,6 @@ class TestReviewDoc(unittest.TestCase):
 class TestReviewFunctionality(unittest.TestCase):
     """functionality of ``Review``class"""
 
-    def test_ReviewSubclass(self):
-        """method to test if ``Review`` inherits from ``BaseModel``"""
-        self.assertIsInstance(review, BaseModel)
-        self.assertTrue(hasattr(review, 'id'))
-        self.assertTrue(hasattr(review, 'created_at'))
-        self.assertTrue(hasattr(review, 'updated_at'))
-
     def test_ReviewPlaceId(self):
         """method to test if ``Review`` has place_id attribute and set to
         empty string"""
