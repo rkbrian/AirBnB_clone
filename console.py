@@ -22,11 +22,7 @@ class HBNBCommand(cmd.Cmd):
     classname = {"BaseModel": BaseModel, "User": User, "Place": Place,
                  "State": State, "City": City, "Amenity": Amenity,
                  "Review": Review}
-
-    def __init__(self):
-        """class initialization"""
-        cmd.Cmd.__init__(self)
-        self.prompt = "(hbnb)"
+    prompt = '(hbnb) '
 
     def emptyline(self):
         """press enter does nothing"""
@@ -52,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
         """create new instance of BaseModel, save it and print id"""
         if len(arg) == 0:
             print("** class name missing **")
-            """return"""
+            return
         elif arg in self.classname.keys():
             for keys, values in self.classname.items():
                 if arg == keys:
@@ -62,16 +58,20 @@ class HBNBCommand(cmd.Cmd):
                     break
         else:
             print("** class doesn't exist **")
+            return
 
     def do_show(self, arg):
         """print str rep of an inst based on class name and id"""
         larg = arg.split()
         if len(larg) == 0:
             print("** class name missing **")
+            return
         elif larg[0] not in self.classname.keys():
             print("** class doesn't exist **")
+            return
         elif len(larg) == 1:
             print("** instance id missing **")
+            return
         elif len(larg) == 2:
             temp_val = larg[0] + "." + larg[1]
             if temp_val in models.storage.all().keys():
@@ -80,16 +80,20 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
         else:
             print("** no instance found **")
+            return
 
     def do_destroy(self, arg):
         """delete an instance based on class name and id"""
         larg = arg.split()
         if len(larg) == 0:
             print("** class name missing **")
+            return
         elif larg[0] not in self.classname.keys():
             print("** class doesn't exist **")
+            return
         elif len(larg) == 1:
             print("** instance id missing **")
+            return
         elif len(larg) == 2:
             temp_val = larg[0] + "." + larg[1]
             if temp_val in models.storage.all().keys():
@@ -99,6 +103,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
         else:
             print("** no instance found **")
+            return
 
     def do_all(self, arg=None):
         """prints all string representation of all instances"""
@@ -124,17 +129,21 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(larg) == 1:
             print("** instance id missing **")
+        elif larg[1] not in (models.storage.all().keys()).split(".")[1]:
+            print("** no instance found **")
         elif len(larg) == 2:
             print("** attribute name missing **")
         elif len(larg) == 3:
             print("** value missing **")
         else:
             for keys, values in models.storage.all().items():
-                if larg[2] + "." + larg[3] == keys:
-                    attr = getattr(keys, larg[2])
-                    if isinstance(attr, (str or int or float)):
-                        setattr(keys, larg[2], isinstance(attr))
-            models.storage.save()
+                if larg[0] + "." + larg[1] == keys:
+                    if larg[2] in values.__dict__.keys():
+                        attr = getattr(values, larg[2])
+                        setattr(keys, larg[2], type(attr)(larg[3][1: -1]))
+                    else:
+                        setattr(keys, larg[2], (larg[3][1: -1]))
+                models.storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
