@@ -45,7 +45,7 @@ class TestFileStorage(unittest.TestCase):
     def test_StorageNew(self):
         """method to test if objects are being set with respective keys"""
         models = Storage.all().copy()
-        models2 = BaseModel()
+        model = BaseModel()
         self.assertEqual(models, Storage.all())
 
     def test_StorageSave(self):
@@ -59,6 +59,14 @@ class TestFileStorage(unittest.TestCase):
     def test_StorageDict(self):
         """method to test dictionary"""
         self.assertIsInstance(FileStorage._FileStorage__objects, dict)
+
+    def test_StorageReload(self):
+        """method to test for deserialization"""
+        if os.path.exists(self.path):
+            os.remove(self.path)
+        model = BaseModel()
+        model.save()
+        self.assertNotEqual(os.path.getsize(self.path), 0)
 
 if __name__ == '__main__':
     unittest.main()
