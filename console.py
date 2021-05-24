@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
         """default input for function call"""
         argcopy = arg
         cutter = [".", "(", ")", "\"", ","]
-        no_dot = argcopy.replace(cutter[0], " ", 1)
+        no_dot = (argcopy.replace(cutter[0], " ", 1)).split()
         for i in range(len(cutter)):
             argcopy = argcopy.replace(cutter[i], " ")
         larg = argcopy.split()
