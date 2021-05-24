@@ -65,6 +65,7 @@ class HBNBCommand(cmd.Cmd):
                     tempval = values()
                     tempval.save()
                     print(tempval.id)
+                    break
         else:
             print("** class doesn't exist **")
 
@@ -107,8 +108,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg=None):
         """prints all string representation of all instances"""
-        if arg in self.classname.keys():
-            listr = []
+        listr = []
+        if not arg:
+            for keys in models.storage.all().keys():
+                listr.append(str(models.storage.all()[keys]))
+            print(listr)
+        elif arg in self.classname.keys():
             for keys, values in models.storage.all().items():
                 if arg in keys:
                     listr.append(str(values))
